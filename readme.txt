@@ -3,7 +3,7 @@ Contributors: elzahlan
 Tags: Category Image, Categories Images, admin, texonomy image, category icon, category logo
 Requires at least: 2.8
 Tested up to: 3.4
-Stable tag: 1.0
+Stable tag: 1.1
 
 The Categories Images Plugin allow you to add image with category or taxonomy.
 
@@ -44,6 +44,9 @@ None
 None
 
 == Changelog ==
+
+= 1.1 =
+Fix javascript bug with wordpress 3.4
 
 = 1.0 =
 The First Release

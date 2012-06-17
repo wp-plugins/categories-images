@@ -4,7 +4,7 @@ Plugin Name: Categories Images
 Plugin URI: http://zahlan.net/blog/2012/06/categories-images/
 Description: Categories Images Plugin allow you to add an image to category or any custom term.
 Author: Muhammad Said El Zahlan
-Version: 1.0
+Version: 1.1
 Author URI: http://zahlan.net/
 */
 ?>
@@ -24,6 +24,7 @@ function z_inti() {
 // add image field in add form
 function z_add_texonomy_field() {
 wp_enqueue_style('thickbox');
+wp_enqueue_script('thickbox');
 	echo '<div class="form-field">
 		<label for="taxonomy_image">Image</label>
 		<input type="text" name="taxonomy_image" id="taxonomy_image" value="" />
@@ -33,37 +34,25 @@ wp_enqueue_style('thickbox');
 // add image field in edit form
 function z_edit_texonomy_field($taxonomy) {
 wp_enqueue_style('thickbox');
+wp_enqueue_script('thickbox');
 	echo '<tr class="form-field">
 		<th scope="row" valign="top"><label for="taxonomy_image">Image</label></th>
 		<td><input type="text" name="taxonomy_image" id="taxonomy_image" value="'.get_option('z_taxonomy_image'.$taxonomy->term_id).'" /><br /></td>
 	</tr>'.z_script();
 }
-
-wp_enqueue_script('thickbox');
-
+// upload using wordpress upload
 function z_script() {
 	return '<script type="text/javascript">
 	    jQuery(document).ready(function() {
-			var fileInput = ""; 
-			jQuery("#taxonomy_image").live("click",
-			function() {
-				fileInput = jQuery("#taxonomy_image");
+			jQuery("#taxonomy_image").click(function() {
 				tb_show("", "media-upload.php?type=image&amp;TB_iframe=true");
 				return false;
-			}); 
-		    window.original_send_to_editor = window.send_to_editor;
+			});
 			window.send_to_editor = function(html) {
-				if (fileInput) {
-					fileurl = jQuery("img", html).attr("src");
-					if (!fileurl)
-						fileurl = jQuery(html).attr("src");
-	
-					jQuery(fileInput).val(fileurl);
-					tb_remove();
-				}
-				else
-					window.original_send_to_editor(html);
-			};
+				imgurl = jQuery("img",html).attr("src");
+				jQuery("#taxonomy_image").val(imgurl);
+				tb_remove();
+			}
 	    });
 	</script>';
 }
