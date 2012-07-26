@@ -11,7 +11,11 @@ The Categories Images Plugin allow you to add image with category or taxonomy.
 
 The Categories Images Plugin allow you to add image with category or taxonomy.
 
-Use `<?php if (function_exists('z_taxonomy_image_url')) echo z_taxonomy_image_url(); ?>` to get the url and put it in any <img /> tag in (category or taxonomy) template.
+Use `<?php if (function_exists('z_taxonomy_image_url')) echo z_taxonomy_image_url(); ?>` to get the url and put it in any img tag in (category or taxonomy) template.
+
+= More documentation =
+
+Go to [http://zahlan.net/blog/2012/06/categories-images/](http://zahlan.net/blog/2012/06/categories-images/)
 
 == Installation ==
 
