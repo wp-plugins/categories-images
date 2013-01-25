@@ -2,8 +2,8 @@
 Contributors: elzahlan
 Tags: Category Image, Categories Images, admin, texonomy image, category icon, category logo
 Requires at least: 2.8
-Tested up to: 3.4
-Stable tag: 1.2
+Tested up to: 3.5
+Stable tag: 2.0
 
 The Categories Images Plugin allow you to add image with category or taxonomy.
 
@@ -46,10 +46,22 @@ Please check the documentation page:
 
 == Screenshots ==
 
-1. new image field in add/edit category or taxonomy.
-2. click the image field and wordpress upload box will popup.
+1. image preview and new image field in add/edit category or taxonomy with upload button which allow you to select current or upload a new image.
+2. new image field with (upload/remove) buttons to allow you to edit category or taxonomy image in quick edit.
+2. when you click the upload button the wordpress upload box will popup, upload or select image then press use this image.
 
 == Changelog ==
+
+= 2.0 =
+* New screenshots.
+* Added l10n support.
+* Added Arabic and Chinese languages.
+* Added new button for upload or select an image using wordpress media uploader.
+* Added default image placeholder.
+* Added thumbnail in categories or taxonomies list.
+* Added image thumbnail, image text box, upload button and remove button in quick edit.
+
+Thank so much to Joe Tse http://tkjune.com :)
 
 = 1.2 =
 Adding some screenshots
