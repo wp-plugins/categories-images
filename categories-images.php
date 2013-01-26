@@ -4,7 +4,7 @@ Plugin Name: Categories Images
 Plugin URI: http://zahlan.net/blog/2012/06/categories-images/
 Description: Categories Images Plugin allow you to add an image to category or any custom term.
 Author: Muhammad Said El Zahlan
-Version: 2.0
+Version: 2.1
 Author URI: http://zahlan.net/
 */
 ?>
@@ -15,7 +15,7 @@ if ( ! defined( 'Z_PLUGIN_URL' ) )
 define( 'Z_IMAGE_PLACEHOLDER', Z_PLUGIN_URL . "/images/placeholder.png");
 
 // l10n
-load_plugin_textdomain( 'z', false, 'categories-images/languages' );
+load_plugin_textdomain( 'zci', false, 'categories-images/languages' );
 
 add_action('admin_init', 'z_init');
 function z_init() {
@@ -33,7 +33,9 @@ function z_init() {
 // style the image in category list
 if ( strpos( $_SERVER['SCRIPT_NAME'], 'edit-tags.php' ) > 0 ) {
 	add_action( 'admin_head', 'z_add_style' );
+	add_action('quick_edit_custom_box', 'z_quick_edit_custom_box', 10, 3);
 }
+
 function z_add_style() {
 	echo '<style type="text/css" media="screen">
 		th.column-thumb {width:60px;}
@@ -134,7 +136,6 @@ function z_taxonomy_image_url($term_id = NULL) {
     return ($taxonomy_image_url != "") ? $taxonomy_image_url : Z_IMAGE_PLACEHOLDER ;
 }
 
-add_action('quick_edit_custom_box', 'z_quick_edit_custom_box', 10, 3);
 function z_quick_edit_custom_box($column_name, $screen, $name) {
 	if ($column_name == 'thumb') 
 		echo '<fieldset>
@@ -184,6 +185,7 @@ function z_taxonomy_column( $columns, $column, $id ) {
 	return $columns;
 }
 
+// change 'insert into post' to 'use this image'
 add_filter("attribute_escape", "z_change_insert_button_text", 10, 2);
 function z_change_insert_button_text($safe_text, $text) {
     return str_replace("Insert into Post", "Use this image", $text);
