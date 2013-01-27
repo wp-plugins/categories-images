@@ -4,7 +4,7 @@ Plugin Name: Categories Images
 Plugin URI: http://zahlan.net/blog/2012/06/categories-images/
 Description: Categories Images Plugin allow you to add an image to category or any custom term.
 Author: Muhammad Said El Zahlan
-Version: 2.1
+Version: 2.2
 Author URI: http://zahlan.net/
 */
 ?>
@@ -28,12 +28,6 @@ function z_init() {
 			add_filter( 'manage_' . $z_taxonomy . '_custom_column', 'z_taxonomy_column', 10, 3 );
 	    }
 	}
-}
-
-// style the image in category list
-if ( strpos( $_SERVER['SCRIPT_NAME'], 'edit-tags.php' ) > 0 ) {
-	add_action( 'admin_head', 'z_add_style' );
-	add_action('quick_edit_custom_box', 'z_quick_edit_custom_box', 10, 3);
 }
 
 function z_add_style() {
@@ -186,9 +180,15 @@ function z_taxonomy_column( $columns, $column, $id ) {
 }
 
 // change 'insert into post' to 'use this image'
-add_filter("attribute_escape", "z_change_insert_button_text", 10, 2);
 function z_change_insert_button_text($safe_text, $text) {
     return str_replace("Insert into Post", "Use this image", $text);
+}
+
+// style the image in category list
+if ( strpos( $_SERVER['SCRIPT_NAME'], 'edit-tags.php' ) > 0 ) {
+	add_action( 'admin_head', 'z_add_style' );
+	add_action('quick_edit_custom_box', 'z_quick_edit_custom_box', 10, 3);
+	add_filter("attribute_escape", "z_change_insert_button_text", 10, 2);
 }
 
 ?>
