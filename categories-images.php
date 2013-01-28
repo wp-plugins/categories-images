@@ -4,7 +4,7 @@ Plugin Name: Categories Images
 Plugin URI: http://zahlan.net/blog/2012/06/categories-images/
 Description: Categories Images Plugin allow you to add an image to category or any custom term.
 Author: Muhammad Said El Zahlan
-Version: 2.2
+Version: 2.2.1
 Author URI: http://zahlan.net/
 */
 ?>
@@ -126,8 +126,8 @@ function z_taxonomy_image_url($term_id = NULL) {
 			$term_id = $current_term->term_id;
 		}
 	}
-	$taxonomy_image_url = get_option('z_taxonomy_image'.$term_id);
-    return ($taxonomy_image_url != "") ? $taxonomy_image_url : Z_IMAGE_PLACEHOLDER ;
+	
+	return get_option('z_taxonomy_image'.$term_id);
 }
 
 function z_quick_edit_custom_box($column_name, $screen, $name) {
