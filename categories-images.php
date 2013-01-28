@@ -4,7 +4,7 @@ Plugin Name: Categories Images
 Plugin URI: http://zahlan.net/blog/2012/06/categories-images/
 Description: Categories Images Plugin allow you to add an image to category or any custom term.
 Author: Muhammad Said El Zahlan
-Version: 2.2.1
+Version: 2.2.2
 Author URI: http://zahlan.net/
 */
 ?>
@@ -56,13 +56,13 @@ wp_enqueue_script('thickbox');
 function z_edit_texonomy_field($taxonomy) {
 	wp_enqueue_style('thickbox');
 	wp_enqueue_script('thickbox');
-	if (z_taxonomy_image_url( $taxonomy->term_id ) == Z_IMAGE_PLACEHOLDER) 
+	if (z_taxonomy_image_url( $taxonomy->term_id, TRUE ) == Z_IMAGE_PLACEHOLDER) 
 		$image_text = "";
 	else
-		$image_text = z_taxonomy_image_url( $taxonomy->term_id );
+		$image_text = z_taxonomy_image_url( $taxonomy->term_id, TRUE );
 	echo '<tr class="form-field">
 		<th scope="row" valign="top"><label for="taxonomy_image">' . __('Image', 'zci') . '</label></th>
-		<td><img class="taxonomy-image" src="' . z_taxonomy_image_url( $taxonomy->term_id ) . '"/><br/><input type="text" name="taxonomy_image" id="taxonomy_image" value="'.$image_text.'" /><br />
+		<td><img class="taxonomy-image" src="' . z_taxonomy_image_url( $taxonomy->term_id, TRUE ) . '"/><br/><input type="text" name="taxonomy_image" id="taxonomy_image" value="'.$image_text.'" /><br />
 		<button class="upload_image_button button">' . __('Upload/Add image', 'zci') . '</button>
 		<button class="remove_image_button button">' . __('Remove image', 'zci') . '</button>
 		</td>
@@ -117,7 +117,7 @@ function z_save_taxonomy_image($term_id) {
 }
 
 // output taxonomy image url for the given term_id (NULL by default)
-function z_taxonomy_image_url($term_id = NULL) {
+function z_taxonomy_image_url($term_id = NULL, $return_placeholder = FALSE) {
 	if (!$term_id) {
 		if (is_category())
 			$term_id = get_query_var('cat');
@@ -126,8 +126,11 @@ function z_taxonomy_image_url($term_id = NULL) {
 			$term_id = $current_term->term_id;
 		}
 	}
-	
-	return get_option('z_taxonomy_image'.$term_id);
+	$taxonomy_image_url = get_option('z_taxonomy_image'.$term_id);
+	if ($return_placeholder)
+		return ($taxonomy_image_url != "") ? $taxonomy_image_url : Z_IMAGE_PLACEHOLDER;
+	else
+		$taxonomy_image_url;
 }
 
 function z_quick_edit_custom_box($column_name, $screen, $name) {
@@ -174,7 +177,7 @@ function z_taxonomy_columns( $columns ) {
  */
 function z_taxonomy_column( $columns, $column, $id ) {
 	if ( $column == 'thumb' )
-		$columns = '<span><img src="' . z_taxonomy_image_url($id) . '" alt="' . __('Thumbnail', 'zci') . '" class="wp-post-image" /></span>';
+		$columns = '<span><img src="' . z_taxonomy_image_url($id, TRUE) . '" alt="' . __('Thumbnail', 'zci') . '" class="wp-post-image" /></span>';
 	
 	return $columns;
 }
