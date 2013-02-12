@@ -48,7 +48,7 @@ wp_enqueue_script('thickbox');
 		<label for="taxonomy_image">' . __('Image', 'zci') . '</label>
 		<input type="text" name="taxonomy_image" id="taxonomy_image" value="" />
 		<br/>
-		<button class="upload_image_button button">' . __('Upload/Add image', 'zci') . '</button>
+		<button class="z_upload_image_button button">' . __('Upload/Add image', 'zci') . '</button>
 	</div>'.z_script();
 }
 
@@ -63,8 +63,8 @@ function z_edit_texonomy_field($taxonomy) {
 	echo '<tr class="form-field">
 		<th scope="row" valign="top"><label for="taxonomy_image">' . __('Image', 'zci') . '</label></th>
 		<td><img class="taxonomy-image" src="' . z_taxonomy_image_url( $taxonomy->term_id, TRUE ) . '"/><br/><input type="text" name="taxonomy_image" id="taxonomy_image" value="'.$image_text.'" /><br />
-		<button class="upload_image_button button">' . __('Upload/Add image', 'zci') . '</button>
-		<button class="remove_image_button button">' . __('Remove image', 'zci') . '</button>
+		<button class="z_upload_image_button button">' . __('Upload/Add image', 'zci') . '</button>
+		<button class="z_remove_image_button button">' . __('Remove image', 'zci') . '</button>
 		</td>
 	</tr>'.z_script();
 }
@@ -72,12 +72,12 @@ function z_edit_texonomy_field($taxonomy) {
 function z_script() {
 	return '<script type="text/javascript">
 	    jQuery(document).ready(function() {
-			jQuery(".upload_image_button").click(function() {
+			jQuery(".z_upload_image_button").click(function() {
 				upload_button = jQuery(this);
 				tb_show("", "media-upload.php?type=image&amp;TB_iframe=true");
 				return false;
 			});
-			jQuery(".remove_image_button").click(function() {
+			jQuery(".z_remove_image_button").click(function() {
 				jQuery("#taxonomy_image").val("");
 				jQuery(this).parent().siblings(".title").children("img").attr("src","' . Z_IMAGE_PLACEHOLDER . '");
 				jQuery(".inline-edit-col :input[name=\'taxonomy_image\']").val("");
@@ -141,8 +141,8 @@ function z_quick_edit_custom_box($column_name, $screen, $name) {
 				<span class="title"><img src="" alt="Thumbnail"/></span>
 				<span class="input-text-wrap"><input type="text" name="taxonomy_image" value="" class="tax_list" /></span>
 				<span class="input-text-wrap">
-					<button class="upload_image_button button">' . __('Upload/Add image', 'zci') . '</button>
-					<button class="remove_image_button button">' . __('Remove image', 'zci') . '</button>
+					<button class="z_upload_image_button button">' . __('Upload/Add image', 'zci') . '</button>
+					<button class="z_remove_image_button button">' . __('Remove image', 'zci') . '</button>
 				</span>
 			</label>
 		</div>
