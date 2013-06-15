@@ -4,7 +4,7 @@ Plugin Name: Categories Images
 Plugin URI: http://zahlan.net/blog/2012/06/categories-images/
 Description: Categories Images Plugin allow you to add an image to category or any custom term.
 Author: Muhammad Said El Zahlan
-Version: 2.3
+Version: 2.3.1
 Author URI: http://zahlan.net/
 */
 ?>
@@ -89,7 +89,7 @@ function z_script() {
 	return '<script type="text/javascript">
 	    jQuery(document).ready(function($) {
 			var wordpress_ver = "'.get_bloginfo("version").'", upload_button;
-			$(".z_upload_image_button").click(function() {
+			$(".z_upload_image_button").click(function(event) {
 				upload_button = $(this);
 				var frame;
 				if (wordpress_ver >= "3.5") {
