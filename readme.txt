@@ -3,8 +3,8 @@ Contributors: elzahlan
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G8LC4VSYKYSGA
 Tags: Category Image, Category Images, Categories Images, taxonomy image, taxonomy images, taxonomies images, category icon, categories icons, category logo, categories logos, admin, wp-admin, category image plugin, categories images plugin
 Requires at least: 2.8
-Tested up to: 3.5.1
-Stable tag: 2.3.1
+Tested up to: 3.6
+Stable tag: 2.3.2
 
 The Categories Images Plugin allow you to add image with category or taxonomy.
 
@@ -56,6 +56,9 @@ Please check the documentation page:
 5. Now you can exclude any taxonomy from the plugin and save changes.
 
 == Changelog ==
+
+= 2.3.2 =
+* Adding language support for French.
 
 = 2.3.1 =
 * Bug fix in js for Wordpress media uploader.
