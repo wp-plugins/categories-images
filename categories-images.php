@@ -1,12 +1,12 @@
 <?php
-/*
-Plugin Name: Categories Images
-Plugin URI: http://zahlan.net/blog/2012/06/categories-images/
-Description: Categories Images Plugin allow you to add an image to category or any custom term.
-Author: Muhammad Said El Zahlan
-Version: 2.3.1
-Author URI: http://zahlan.net/
-*/
+/**
+ * Plugin Name: Categories Images
+ * Plugin URI: http://zahlan.net/blog/2012/06/categories-images/
+ * Description: Categories Images Plugin allow you to add an image to category or any custom term.
+ * Author: Muhammad Said El Zahlan
+ * Version: 2.4
+ * Author URI: http://zahlan.net/
+ */
 ?>
 <?php
 if (!defined('Z_PLUGIN_URL'))
@@ -161,8 +161,16 @@ function z_save_taxonomy_image($term_id) {
         update_option('z_taxonomy_image'.$term_id, $_POST['taxonomy_image']);
 }
 
-// output taxonomy image url for the given term_id (NULL by default)
-function z_taxonomy_image_url($term_id = NULL, $return_placeholder = FALSE) {
+// get attachment ID by image url
+function z_get_attachment_id_by_url($image_src) {
+    global $wpdb;
+    $query = "SELECT ID FROM {$wpdb->posts} WHERE guid = '$image_src'";
+    $id = $wpdb->get_var($query);
+    return (!empty($id)) ? $id : NULL;
+}
+
+// get taxonomy image url for the given term_id (Place holder image by default)
+function z_taxonomy_image_url($term_id = NULL, $size = NULL, $return_placeholder = FALSE) {
 	if (!$term_id) {
 		if (is_category())
 			$term_id = get_query_var('cat');
@@ -171,9 +179,18 @@ function z_taxonomy_image_url($term_id = NULL, $return_placeholder = FALSE) {
 			$term_id = $current_term->term_id;
 		}
 	}
-	$taxonomy_image_url = get_option('z_taxonomy_image'.$term_id);
-	if ($return_placeholder)
-		return ($taxonomy_image_url != "") ? $taxonomy_image_url : Z_IMAGE_PLACEHOLDER;
+	
+    $taxonomy_image_url = get_option('z_taxonomy_image'.$term_id);
+    $attachment_id = z_get_attachment_id_by_url($taxonomy_image_url);
+    if(!empty($attachment_id)) {
+    	if (empty($size))
+    		$size = 'full';
+    	$taxonomy_image_url = wp_get_attachment_image_src($attachment_id, $size);
+	    $taxonomy_image_url = $taxonomy_image_url[0];
+    }
+
+    if ($return_placeholder)
+		return ($taxonomy_image_url != '') ? $taxonomy_image_url : Z_IMAGE_PLACEHOLDER;
 	else
 		return $taxonomy_image_url;
 }
